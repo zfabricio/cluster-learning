@@ -1,19 +1,37 @@
 # 🚀 Kubernetes Learning Cluster
 
-Este projeto demonstra como containerizar uma aplicação Node.js com TypeScript e implantá-la em um cluster **Kubernetes (Kind)** local, incluindo automação de CI/CD via **GitHub Actions**.
+Este projeto demonstra o ciclo completo de desenvolvimento moderno: containerização de uma aplicação **Node.js com TypeScript** e implantação em um cluster **Kubernetes (Kind)** local, com esteira de CI/CD via **GitHub Actions** e deploy automático no **Render**.
+
+---
+
+## 🔗 Links do Projeto
+
+[![CI Kubernetes](https://github.com/zfabricio/cluster-learning/actions/workflows/main.yml/badge.svg)](https://github.com/zfabricio/cluster-learning/actions)
+[![Link do App](https://img.shields.io/badge/Link-Live_Demo-brightgreen)](https://cluster-learning.onrender.com)
+
+> **Acesse o app online:** [https://cluster-learning.onrender.com](https://cluster-learning.onrender.com)
+
+---
 
 ## 🛠️ Tecnologias Utilizadas
-* **Node.js 20** & **TypeScript**
-* **Docker**: Para criação da imagem do app.
-* **Kubernetes (K8s)**: Orquestração dos containers.
-* **Kind (Kubernetes in Docker)**: Ferramenta para rodar clusters locais.
-* **GitHub Actions**: Automação de testes e deploy.
+
+* **Runtime:** Node.js 20 & TypeScript
+* **Containerização:** Docker (Imagens otimizadas)
+* **Orquestração:** Kubernetes (K8s)
+* **Cluster Local:** Kind (Kubernetes in Docker)
+* **CI/CD:** GitHub Actions (Automação de builds e testes)
+* **Cloud Hosting:** Render (Deploy de produção)
+
+---
 
 ## 📋 Pré-requisitos
-Antes de começar, você precisará ter instalado no seu Linux:
-* [Docker](https://docs.docker.com/engine/install/)
-* [Kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
-* [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/)
+
+Para rodar este projeto na sua máquina Linux, você precisará de:
+* [Docker](https://docs.docker.com/engine/install/) instalado e rodando.
+* [Kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installation) para criar o cluster local.
+* [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/) para gerenciar o cluster.
+
+---
 
 ## 🚀 Como Rodar Localmente
 
@@ -21,13 +39,3 @@ Antes de começar, você precisará ter instalado no seu Linux:
 Crie o cluster de teste usando o Kind:
 ```bash
 kind create cluster --name cluster-teste
-
-
-# 🚀 Cluster Learning
-
-[![CI Kubernetes](https://github.com/zfabricio/cluster-learning/actions/workflows/main.yml/badge.svg)](https://github.com/zfabricio/cluster-learning/actions)
-[![Link do App](https://img.shields.io/badge/Link-Live_Demo-brightgreen)](https://cluster-learning.onrender.com)
-
-Este projeto utiliza Node.js, Docker e Kubernetes para demonstrar um fluxo completo de CI/CD.
-
-**Acesse o projeto rodando aqui:** [https://cluster-learning.onrender.com](https://cluster-learning.onrender.com)
