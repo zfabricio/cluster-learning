@@ -3,23 +3,37 @@ kind: Deployment
 metadata:
   name: meu-app-node
 spec:
-  replicas: 1           # Quantidade de cópias do seu app
+  replicas: 1
   selector:
     matchLabels:
-      app: meu-app      # Etiqueta para o Kubernetes identificar seu app
+      app: meu-app
   template:
     metadata:
       labels:
-        app: meu-app    # Etiqueta que será aplicada aos containers (Pods)
+        app: meu-app
     spec:
       containers:
       - name: node-app
-        image: meu-app-local:v1  # A imagem que você buildou com sucesso!
-        imagePullPolicy: Never   # Importante: diz ao K8s para usar a imagem local do Kind
+        image: meu-app-local:v1
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 3000
         resources:
           limits:
-            memory: "512Mi"  # Aumentamos aqui
-            cpu: "500m"
-          requests:
             memory: "512Mi"
             cpu: "500m"
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: meu-app-service
+spec:
+  selector:
+    app: meu-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000

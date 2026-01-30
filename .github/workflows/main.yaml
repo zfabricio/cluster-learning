@@ -1,39 +1,30 @@
-name: CI Kubernetes Test
+name: CI Kubernetes
 
-on:
-  push:
-    branches: [ main ]
+on: [push]
 
 jobs:
   k8s-test:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout do código
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Configurar Node.js
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - name: Criar Cluster Kind
+      - name: Create Kind Cluster
         uses: helm/kind-action@v1.8.0
-        with:
-          cluster_name: cluster-teste
 
-
-      - name: Build da Imagem Docker
+      - name: Build Image
         run: docker build -t meu-app-local:v1 .
 
-     
-      - name: Carregar imagem no Kind
-        run: kind load docker-image meu-app-local:v1 --name cluster-teste
+      - name: Load Image into Kind
+        run: kind load docker-image meu-app-local:v1 --name kind
 
-
-      - name: Deploy e Teste
+      - name: Deploy to K8s
         run: |
           kubectl apply -f k8s-deployment.yaml
-          # Aguarda o pod ficar pronto para não dar erro no teste
-          kubectl wait --for=condition=ready pod -l app=meu-app --timeout=60s
-          kubectl get pods
+          kubectl wait --for=condition=ready pod -l app=meu-app --timeout=90s
           kubectl logs -l app=meu-app
