@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: meu-app-node
+spec:
+  replicas: 1           # Quantidade de cópias do seu app
+  selector:
+    matchLabels:
+      app: meu-app      # Etiqueta para o Kubernetes identificar seu app
+  template:
+    metadata:
+      labels:
+        app: meu-app    # Etiqueta que será aplicada aos containers (Pods)
+    spec:
+      containers:
+      - name: node-app
+        image: meu-app-local:v1  # A imagem que você buildou com sucesso!
+        imagePullPolicy: Never   # Importante: diz ao K8s para usar a imagem local do Kind
+        resources:
+          limits:
+            memory: "512Mi"  # Aumentamos aqui
+            cpu: "500m"
+          requests:
+            memory: "512Mi"
+            cpu: "500m"

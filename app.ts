@@ -1,26 +1,11 @@
-import cluster from 'node:cluster';
-import http from 'node:http';
-import { cpus } from 'node:os';
+import express from 'express';
+const app = express();
+const port = 3000;
 
-if (cluster.isPrimary) {
-  const numCPUs = cpus().length;
-  console.log(`[MESTRE]: Cluster ativo com ${numCPUs} nós.`);
+app.get('/', (req, res) => {
+  res.send('Olá do Kubernetes!');
+});
 
-  for (let i = 0; i < numCPUs; i++) {
-    cluster.fork();
-  }
-
-  cluster.on('exit', (worker) => {
-    console.log(`[MESTRE]: Operário ${worker.process.pid} offline. Reiniciando...`);
-    cluster.fork();
-  });
-} else {
-  http.createServer((req, res) => {
-    res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({
-      mensagem: "Cluster operacional!",
-      operario_pid: process.pid,
-      uptime: process.uptime()
-    }));
-  }).listen(8000);
-}
+app.listen(port, '0.0.0.0', () => {
+  console.log(`Servidor rodando em http://localhost:${port}`);
+});
