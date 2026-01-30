@@ -1,0 +1,18 @@
+# Dependências (Nunca enviar para o Git)
+node_modules/
+
+# Ficheiros de log do sistema
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Ficheiros compilados (se usares build)
+dist/
+out/
+
+# Variáveis de ambiente (Segurança!)
+.env
+
+# Pastas de sistema
+.DS_Store
+Thumbs.db
