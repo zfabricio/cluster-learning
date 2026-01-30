@@ -1,21 +1,19 @@
-name: Testar Cluster Learning
+name: Cluster Learning
 on: [push]
 
 jobs:
-  execucao-cluster:
+  run-cluster:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
-      - name: Setup Node.js
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm' 
+          cache: 'npm'
 
       - name: Instalar Dependências
         run: npm install
 
-      - name: Rodar Código
-        
-        run: npx ts-node --esm app.ts
+      - name: Executar com TSX
+        run: npx tsx app.ts
