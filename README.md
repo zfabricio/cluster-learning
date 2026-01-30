@@ -21,3 +21,13 @@ Antes de começar, você precisará ter instalado no seu Linux:
 Crie o cluster de teste usando o Kind:
 ```bash
 kind create cluster --name cluster-teste
+
+
+# 🚀 Cluster Learning
+
+[![CI Kubernetes](https://github.com/zfabricio/cluster-learning/actions/workflows/main.yml/badge.svg)](https://github.com/zfabricio/cluster-learning/actions)
+[![Link do App](https://img.shields.io/badge/Link-Live_Demo-brightgreen)](https://cluster-learning.onrender.com)
+
+Este projeto utiliza Node.js, Docker e Kubernetes para demonstrar um fluxo completo de CI/CD.
+
+**Acesse o projeto rodando aqui:** [https://cluster-learning.onrender.com](https://cluster-learning.onrender.com)
