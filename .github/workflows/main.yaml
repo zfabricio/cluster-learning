@@ -21,7 +21,10 @@ jobs:
         run: docker build -t meu-app-local:v1 .
 
       - name: Load Image into Kind
-        run: kind load docker-image meu-app-local:v1 --name kind
+        run: |
+          # Esse comando pega o nome do cluster que acabou de ser criado
+          CLUSTER_NAME=$(kind get clusters)
+          kind load docker-image meu-app-local:v1 --name $CLUSTER_NAME
 
       - name: Deploy to K8s
         run: |
