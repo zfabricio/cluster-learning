@@ -4,22 +4,23 @@ import { cpus } from 'node:os';
 
 if (cluster.isPrimary) {
   const numCPUs = cpus().length;
-  console.log(`[MESTRE]: Cluster iniciado com ${numCPUs} operários.`);
+  console.log(`[MESTRE]: Cluster ativo com ${numCPUs} nós.`);
 
   for (let i = 0; i < numCPUs; i++) {
     cluster.fork();
   }
 
   cluster.on('exit', (worker) => {
-    console.log(`[MESTRE]: Operário ${worker.process.pid} terminou. Reiniciando...`);
+    console.log(`[MESTRE]: Operário ${worker.process.pid} offline. Reiniciando...`);
     cluster.fork();
   });
 } else {
   http.createServer((req, res) => {
-    res.writeHead(200, { 'Content-Type': 'text/plain' });
-    res.end(`Olá do Cluster! Respondido pelo PID: ${process.pid}\n`);
-    console.log(`[WORKER ${process.pid}]: Pedido recebido!`);
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({
+      mensagem: "Cluster operacional!",
+      operario_pid: process.pid,
+      uptime: process.uptime()
+    }));
   }).listen(8000);
-
-  console.log(`[WORKER]: Operário ${process.pid} online na porta 8000.`);
 }

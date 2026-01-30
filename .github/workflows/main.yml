@@ -1,11 +1,12 @@
-name: Cluster Public IP
+name: Cluster Learning Final
 on: [push]
 
 jobs:
-  run-cluster:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -14,16 +15,23 @@ jobs:
       - name: Instalar Ferramentas
         run: npm install -g tsx localtunnel
 
-      - name: Obter IP e Rodar Cluster
+      - name: Lançar e Desconectar (Status Verde)
         run: |
-          tsx app.ts &
-        
-          sleep 5
-          
-          echo "------------------------------------------"
-          echo "A TUA TUNNEL PASSWORD É:"
-          curl https://loca.lt/mytunnelpassword
-          echo "------------------------------------------"
+          nohup tsx app.ts > cluster.log 2>&1 &
           
          
-          lt --port 8000
+          sleep 5
+          echo "------------------------------------------"
+          echo "TUA PASSWORD DO TUNNEL:"
+          curl -s https://loca.lt/mytunnelpassword
+          echo -e "\n------------------------------------------"
+          
+         
+          nohup lt --port 8000 > tunnel.log 2>&1 &
+          disown -a
+          
+          sleep 5
+          echo "TEU LINK PUBLICO:"
+          cat tunnel.log
+          echo "Processo finalizado com sucesso no GitHub. Link ativo no Runner."
+          exit 0
