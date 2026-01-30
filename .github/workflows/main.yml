@@ -1,4 +1,4 @@
-name: Cluster Learning
+name: Cluster Public IP
 on: [push]
 
 jobs:
@@ -10,10 +10,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
 
       - name: Instalar Dependências
-        run: npm install
+        run: |
+          npm install -g tsx localtunnel
 
-      - name: Executar com TSX
-        run: npx tsx app.ts
+      - name: Rodar Cluster e Abrir IP
+        run: |
+          tsx app.ts &
+          sleep 5
+          lt --port 8000
