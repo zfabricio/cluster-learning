@@ -4,7 +4,7 @@ import { cpus } from 'node:os';
 
 if (cluster.isPrimary) {
   const numCPUs = cpus().length;
-  console.log(`[MESTRE]: Cluster iniciado. Criando ${numCPUs} operários.`);
+  console.log(`[MESTRE]: Cluster iniciado com ${numCPUs} operários.`);
 
   for (let i = 0; i < numCPUs; i++) {
     cluster.fork();

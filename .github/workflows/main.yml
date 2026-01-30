@@ -11,12 +11,19 @@ jobs:
         with:
           node-version: 20
 
-      - name: Instalar Dependências
-        run: |
-          npm install -g tsx localtunnel
+      - name: Instalar Ferramentas
+        run: npm install -g tsx localtunnel
 
-      - name: Rodar Cluster e Abrir IP
+      - name: Obter IP e Rodar Cluster
         run: |
           tsx app.ts &
+        
           sleep 5
+          
+          echo "------------------------------------------"
+          echo "A TUA TUNNEL PASSWORD É:"
+          curl https://loca.lt/mytunnelpassword
+          echo "------------------------------------------"
+          
+         
           lt --port 8000
